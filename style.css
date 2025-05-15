@@ -1,0 +1,171 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #000;
+  color: #fff;
+}
+
+.background {
+  background: linear-gradient(145deg, #000 0%, #11002b 40%, #1f0044 100%);
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.switch {
+  margin-bottom: 10px;
+}
+
+.switch button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  margin: 0 5px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  background: #2b2b2b;
+  color: #ccc;
+}
+
+.switch .active {
+  background: #5551ff !important;
+  color: white !important;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.toggle {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  color: #aaa;
+  font-size: 0.95rem;
+}
+
+.toggle .discount {
+  background: #2f4fff;
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  color: white;
+  margin-left: 4px;
+}
+
+.pricing {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #111;
+  border-radius: 16px;
+  padding: 25px;
+  width: 300px;
+  box-shadow: 0 0 10px #220033;
+  transition: 0.3s;
+}
+
+.card h2 {
+  margin-top: 0;
+}
+
+.price {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.subtext {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.btn {
+  margin: 15px 0;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #2b2bff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+
+}
+a.btn {
+  text-decoration: none;
+}
+.card ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.card ul li {
+  padding: 6px 0;
+  border-bottom: 1px solid #222;
+  font-size: 0.95rem;
+}
+
+.popular {
+  background: #1a1a2e;
+  border: 2px solid #4444ff;
+}
+
+.premium {
+  background: #2a0033;
+  border: 2px solid #8800ff;
+}
+
+.lifetime {
+  background: #332800;
+  border: 2px solid gold;
+  box-shadow: 0 0 12px gold;
+}
+
+/* ============ */
+.chat-buttons {
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 999;
+}
+
+.chat-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #229ED9; /* màu Telegram */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.chat-button:hover {
+  transform: scale(1.1);
+}
+
+svg {
+  width: 28px;
+  height: 28px;
+  fill: white;
+}
