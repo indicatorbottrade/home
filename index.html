@@ -20,11 +20,18 @@
       <div class="text-center mb-8">
         <div class="flex justify-center space-x-4 mb-4">
           <!-- Bot Trade tab (locked) -->
-          <button 
+          <!-- <button 
             class="px-4 py-2 rounded-md text-white font-medium bg-gray-600/50 cursor-not-allowed opacity-60 flex items-center space-x-1"
             disabled>
             <span>Bot Trade</span> <span></span>
-          </button>
+          </button> -->
+          <!-- Bot Trade tab (unlock, dẫn link Discord) -->
+          <a 
+            href="https://discord.gg/bC6rhesBFX" 
+            target="_blank"
+            class="px-4 py-2 rounded-md text-white font-medium bg-gray-600 hover:bg-gray-700 transition flex items-center space-x-1">
+            <span>Bot Trade</span>
+          </a>
           <!-- Indicator tab (active) -->
           <button 
             class="px-4 py-2 rounded-md text-white font-medium bg-blue-600">
@@ -33,7 +40,7 @@
         </div>
 
         <h1 class="text-2xl md:text-4xl font-bold leading-snug text-white">
-          Gói dịch vụ cho <br class="hidden md:block"> Indicator ở mọi mức độ
+          Gói dịch vụ cho Indicator
         </h1>
 
         <!-- Billing options inline -->
@@ -104,6 +111,30 @@
         return {
           billingCycle: "monthly",
           plans: [
+           
+            {
+              name: 'Change in State of Delivery: CISD (duy)',
+              monthly: 9.99,
+              yearly: 99.99,
+              lifetime: 499.99,
+              saving: { monthly: "$9.99", yearly: "$99.99", lifetime: "$499.99" },
+              action: 'Link Indicator',
+              url: 'https://vn.tradingview.com/script/bzC8v8wi/',
+              features: [
+                "Xác định bias đồng thời H1, M15, M5.",
+                "Phát hiện CISD — chuyển đổi trạng thái tăng/giảm.",
+                "Vẽ line + label khi phát hiện CISD.",
+                "Hiển thị bias ▲ / ▼ trên bảng.",
+                "Tùy chỉnh màu bullish & bearish, line style, độ dày, kích thước text.",
+                "Bias của LTF có thể reset theo input.",
+                "Theo dõi đa khung thời gian, so sánh bias.",
+                "Bảng tổng hợp bias ngay trên chart.",
+                "Hỗ trợ trader quyết định vào/ra theo xu hướng chính.",
+                "⚡ Hỗ trợ fix lỗi, nâng cấp & tối ưu theo yêu cầu."
+              ],
+              highlight: 'premium',
+              promo: 'Khuyến mãi 50% trong Tháng 10'
+            },
             {
               name: 'IRL ERL (duy) v3',
               monthly: 9.99,
@@ -130,46 +161,6 @@
                 "⚡ Hỗ trợ fix lỗi, nâng cấp & tối ưu."
               ],
               highlight: 'premium'
-            },
-            {
-              name: 'Change in State of Delivery: CISD (duy)',
-              monthly: 9.99,
-              yearly: 99.99,
-              lifetime: 499.99,
-              saving: { monthly: "$9.99", yearly: "$99.99", lifetime: "$499.99" },
-              action: 'Link Indicator',
-              url: 'https://vn.tradingview.com/script/bzC8v8wi/',
-              features: [
-                "Xác định bias đồng thời H1, M15, M5.",
-                "Phát hiện CISD — chuyển đổi trạng thái tăng/giảm.",
-                "Vẽ line + label khi phát hiện CISD.",
-                "Hiển thị bias ▲ / ▼ trên bảng.",
-                "Tùy chỉnh màu bullish & bearish, line style, độ dày, kích thước text.",
-                "Bias của LTF có thể reset theo input.",
-                "Theo dõi đa khung thời gian, so sánh bias.",
-                "Bảng tổng hợp bias ngay trên chart.",
-                "Hỗ trợ trader quyết định vào/ra theo xu hướng chính.",
-                "⚡ Hỗ trợ fix lỗi, nâng cấp & tối ưu theo yêu cầu."
-              ],
-              highlight: 'premium',
-              promo: 'Khuyến mãi 50% Tháng 10'
-            },
-            {
-              name: 'HTF Zone (duy)',
-              monthly: 0,
-              yearly: 0,
-              lifetime: 0,
-              saving: { monthly: "Free", yearly: "Free", lifetime: "Free" },
-              action: 'Dùng miễn phí',
-              url: 'https://vn.tradingview.com/script/iE6VOwRY-Zone-HTF-duy/',
-              features: [
-                "Hiển thị vùng giá HTF trên chart.",
-                "Tích hợp FVG & volume imbalance.",
-                "Hỗ trợ nhiều timeframe (tối đa 6).",
-                "Tùy chỉnh múi giờ New York.",
-                "Có label & đồng hồ đếm ngược.",
-                "Dành cho trader theo dõi nhiều khung thời gian."
-              ]
             },
             {
             name: 'IRL ERL (duy) v1',
@@ -204,7 +195,24 @@
               "Vẽ sóng Gann."
             ],
             highlight: ""
-          }
+          },
+           {
+              name: 'HTF Zone (duy)',
+              monthly: 0,
+              yearly: 0,
+              lifetime: 0,
+              saving: { monthly: "Free", yearly: "Free", lifetime: "Free" },
+              action: 'Link Indicator',
+              url: 'https://vn.tradingview.com/script/iE6VOwRY-Zone-HTF-duy/',
+              features: [
+                "Hiển thị vùng giá HTF trên chart.",
+                "Tích hợp FVG & volume imbalance.",
+                "Hỗ trợ nhiều timeframe (tối đa 6).",
+                "Tùy chỉnh múi giờ New York.",
+                "Có label & đồng hồ đếm ngược.",
+                "Dành cho trader theo dõi nhiều khung thời gian."
+              ]
+            }
           ]
         }
       },
