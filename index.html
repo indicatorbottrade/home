@@ -1,166 +1,212 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <title>Indicator IRL ERL</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bảng giá Indicator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 </head>
-<body>
-  <div id="app">
-    <div class="background">
-      <div class="container">
-        <div class="header">
-          <div class="switch">
-            <!-- <button :class="{ active: !isPro }" @click="isPro = false">Bot Trade</button> -->
-            <button :class="{ active: !isPro }">Bot Trade</button>
-            <button :class="{ active: isPro }" @click="isPro = true">Indicator</button>
-          </div>
-          <h1>Gói dịch vụ cho<br>Indicator IRL ERL ở mọi mức độ</h1>
-          <div class="toggle">
-            <label>
-              <input type="radio" value="monthly" v-model="billingCycle"> Hàng tháng
-             
-            </label>
-            <label>
-              <input type="radio" value="yearly" v-model="billingCycle"> 
-              Hàng năm 
-            </label>
-<!--             <label>
-              <input type="radio" value="lifetime" v-model="billingCycle"> 
-              Trọn đời 
-            </label> -->
-            <span class="discount">Hỗ trợ dùng thử miễn phí</span>
-          </div>
+<body class="dark">
+  <div id="app" class="min-h-screen flex flex-col items-center p-4 relative overflow-hidden">
+
+    <!-- Background -->
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-black"></div>
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
+
+    <!-- Content wrapper -->
+    <div class="relative z-10 w-full max-w-7xl">
+      <!-- Header / controls -->
+      <div class="text-center mb-8">
+        <div class="flex justify-center space-x-4 mb-4">
+          <!-- Bot Trade tab (locked) -->
+          <button 
+            class="px-4 py-2 rounded-md text-white font-medium bg-gray-600/50 cursor-not-allowed opacity-60 flex items-center space-x-1"
+            disabled>
+            <span>Bot Trade</span> <span></span>
+          </button>
+          <!-- Indicator tab (active) -->
+          <button 
+            class="px-4 py-2 rounded-md text-white font-medium bg-blue-600">
+            Indicator
+          </button>
         </div>
 
-        <div class="pricing">
-          <div class="card" v-for="plan in filteredPlans" :key="plan.name" :class="plan.highlight">
-            <h2>{{ plan.name }}</h2>
-            <p class="price">${{ getPrice(plan) }} <span>/ tháng</span></p>
-            <p class="subtext">Giá {{ plan.saving[billingCycle] }}</p>
-            <!-- <button class="btn">{{ plan.action }}</button> -->
-             <a class="btn" :href="plan.url" target="_blank">{{ plan.action }}</a>
-            <ul>
-              <li v-for="(feature, i) in plan.features" :key="i">{{ feature }}</li>
-            </ul>
-          </div>
+        <h1 class="text-2xl md:text-4xl font-bold leading-snug text-white">
+          Gói dịch vụ cho <br class="hidden md:block"> Indicator ở mọi mức độ
+        </h1>
+
+        <!-- Billing options inline -->
+        <div class="flex flex-wrap justify-center items-center gap-2 mt-6 text-white text-sm">
+          <label class="flex items-center space-x-1">
+            <input type="radio" value="monthly" v-model="billingCycle" class="accent-blue-500">
+            <span>Hàng tháng</span>
+          </label>
+          <label class="flex items-center space-x-1">
+            <input type="radio" value="yearly" v-model="billingCycle" class="accent-blue-500">
+            <span>Hàng năm</span>
+          </label>
+          <span class="text-green-400 font-medium">Hỗ trợ dùng thử miễn phí</span>
         </div>
       </div>
-      <div class="chat-buttons">
-      <!-- Nút Telegram -->
-      <a href="https://t.me/hokhanhduycs" class="chat-button" target="_blank" aria-label="Telegram Chat">
-        <svg viewBox="0 0 24 24">
-          <path d="M12 0C5.3728 0 0 5.3728 0 12C0 18.6272 5.3728 24 12 24C18.6272 24 24 18.6272 24 12C24 5.3728 18.6272 0 12 0ZM17.9472 7.3536L16.1952 16.2816C16.056 16.9488 15.648 17.1072 15.0816 16.8144L12.2736 14.7312L10.9584 16.0032C10.8048 16.1568 10.6704 16.2912 10.3968 16.2912L10.6032 13.4266L15.7056 8.976C15.9264 8.7856 15.6576 8.6784 15.3792 8.8704L8.8128 13.3056L6.0144 12.4704C5.3616 12.2688 5.3472 11.8224 6.1776 11.52L17.1072 7.5936C17.6448 7.4088 18.12 7.7376 17.9472 7.3536Z"/>
-      </svg>
-    </a>
-  </div>
+
+    <!-- Grid Plans -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+      <div v-for="plan in plans" :key="plan.name"
+        class="p-4 md:p-6 rounded-lg md:rounded-xl shadow-xl relative transition"
+        :class="plan.highlight === 'premium' 
+          ? 'bg-gradient-to-b from-purple-700 via-indigo-700 to-blue-800 border-2 border-pink-400 ring-2 ring-pink-300' 
+          : 'bg-gradient-to-b from-gray-800 to-gray-900 border border-gray-700'">
+
+        <!-- Badge khuyến mãi -->
+        <div v-if="plan.promo"
+          class="absolute -top-3 right-3 bg-gradient-to-r from-red-500 to-orange-500 text-white text-xs font-bold px-2 py-1 rounded shadow-lg animate-bounce">
+          {{ plan.promo }}
+        </div>
+
+        <!-- Title + Price -->
+        <h2 class="text-base md:text-lg font-bold mb-2 text-white">{{ plan.name }}</h2>
+        <p class="text-xl md:text-2xl font-bold text-white mb-1">
+          ${{ getPrice(plan) }}
+          <span class="text-xs md:text-base font-normal text-gray-300">/ tháng</span>
+        </p>
+        <p class="text-xs md:text-sm text-gray-300 mb-4">Giá {{ plan.saving[billingCycle] }}</p>
+
+        <!-- Button -->
+        <a :href="plan.url" target="_blank"
+          class="inline-block w-full text-center bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md mb-4 transition text-sm md:text-base font-medium">
+          {{ plan.action }}
+        </a>
+
+        <!-- Features -->
+        <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-200 list-disc list-inside">
+          <li v-for="(feature, i) in plan.features" :key="i">{{ feature }}</li>
+        </ul>
+      </div>
     </div>
+
   </div>
 
   <script>
-    new Vue({
-      el: '#app',
-      data: {
-        billingCycle: 'monthly',
-        isPro: true,
-        plans: [
-          {
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          billingCycle: "monthly",
+          plans: [
+            {
+              name: 'IRL ERL (duy) v3',
+              monthly: 9.99,
+              yearly: 99.99,
+              lifetime: 499.99,
+              saving: { monthly: "$9.99", yearly: "$99.99", lifetime: "$499.99" },
+              action: 'Link Indicator',
+              url: 'https://vn.tradingview.com/script/gy1QpgAK/',
+              features: [
+                "Vẽ IRL HTF.",
+                "Xác định & đánh dấu IRL HTF mạnh.",
+                "Vẽ ERL đỉnh/đáy khi có IRL mạnh.",
+                "Hiển thị Bias HTF.",
+                "Vẽ vùng canh theo Bias.",
+                "Kiểm tra LTF đã về vùng chưa.",
+                "Bật/tắt FVG LTF.",
+                "Tính toán dữ liệu lịch sử.",
+                "Tùy chỉnh thời gian vào lệnh LTF.",
+                "Thông báo khi có setup.",
+                "Tùy chỉnh ghi chú IRL mạnh.",
+                "Thời gian hiệu lực IRL.",
+                "Tùy chỉnh setup cách đỉnh/đáy tăng RR.",
+                "Tùy chỉnh thời gian thông báo.",
+                "⚡ Hỗ trợ fix lỗi, nâng cấp & tối ưu."
+              ],
+              highlight: 'premium'
+            },
+            {
+              name: 'Change in State of Delivery: CISD (duy)',
+              monthly: 9.99,
+              yearly: 99.99,
+              lifetime: 499.99,
+              saving: { monthly: "$9.99", yearly: "$99.99", lifetime: "$499.99" },
+              action: 'Link Indicator',
+              url: 'https://vn.tradingview.com/script/bzC8v8wi/',
+              features: [
+                "Xác định bias đồng thời H1, M15, M5.",
+                "Phát hiện CISD — chuyển đổi trạng thái tăng/giảm.",
+                "Vẽ line + label khi phát hiện CISD.",
+                "Hiển thị bias ▲ / ▼ trên bảng.",
+                "Tùy chỉnh màu bullish & bearish, line style, độ dày, kích thước text.",
+                "Bias của LTF có thể reset theo input.",
+                "Theo dõi đa khung thời gian, so sánh bias.",
+                "Bảng tổng hợp bias ngay trên chart.",
+                "Hỗ trợ trader quyết định vào/ra theo xu hướng chính.",
+                "⚡ Hỗ trợ fix lỗi, nâng cấp & tối ưu theo yêu cầu."
+              ],
+              highlight: 'premium',
+              promo: 'Khuyến mãi 50% Tháng 10'
+            },
+            {
+              name: 'HTF Zone (duy)',
+              monthly: 0,
+              yearly: 0,
+              lifetime: 0,
+              saving: { monthly: "Free", yearly: "Free", lifetime: "Free" },
+              action: 'Dùng miễn phí',
+              url: 'https://vn.tradingview.com/script/iE6VOwRY-Zone-HTF-duy/',
+              features: [
+                "Hiển thị vùng giá HTF trên chart.",
+                "Tích hợp FVG & volume imbalance.",
+                "Hỗ trợ nhiều timeframe (tối đa 6).",
+                "Tùy chỉnh múi giờ New York.",
+                "Có label & đồng hồ đếm ngược.",
+                "Dành cho trader theo dõi nhiều khung thời gian."
+              ]
+            },
+            {
             name: 'IRL ERL (duy) v1',
             monthly: 0.0,
             yearly: 0.0,
             lifetime: 0.0,
-            saving: {
-              monthly: "Free",
-              yearly: "Free",
-              lifetime: "Free"
-            },
+            saving: { monthly: "Free", yearly: "Free", lifetime: "Free" },
             action: 'Link Indicator',
-            url: 'https://vn.tradingview.com/script/oXdyemCp/', // <-- Thêm link tại đây
+            url: 'https://vn.tradingview.com/script/oXdyemCp/',
             features: [
               "Vẽ IRL H4.",
-              "Xác định và đánh dấu IRL H4 mạnh.",
+              "Xác định & đánh dấu IRL H4 mạnh.",
               "Vẽ ERL đỉnh/đáy khi có IRL H4 mạnh.",
-              "Xác định và hiện thị Bias H4.",
-              "Xác định [vẽ] vùng canh lệnh theo Bias H4.",
-              "Xác định hiện thị M15 đã về vùng canh lênh hay chưa.",
-              "Hiện thị 40 fgv M15 gần nhất.",
-              "Tính toán trong 25 ngày gần nhất.",
-
+              "Hiển thị Bias H4.",
+              "Vẽ vùng canh theo Bias H4.",
+              "Kiểm tra M15 đã về vùng chưa.",
+              "Hiển thị 40 FVG M15 gần nhất.",
+              "Tính toán 25 ngày gần nhất."
             ],
             highlight: ""
           },
-         
-          {
-            name: 'IRL ERL (duy) v3',
-            monthly: 9.99,
-            yearly: 99.99,
-            lifetime: 499.99,
-            saving: {
-              monthly: "$9.99",
-              yearly: "$99.99",
-              lifetime:"$499.99",
-            },
-            action: 'Link Indicator',
-            url: 'https://vn.tradingview.com/script/gy1QpgAK/', // <-- Thêm link tại đây
-            features: [
-              "Vẽ IRL HTF.",
-              "Xác định đánh dấu IRL HTF mạnh.",
-              "Vẽ ERL đỉnh/đáy khi có IRL mạnh.",
-              "Xác định hiển thị Bias HTF.",
-              "Xác định [vẽ] vùng canh lệnh theo Bias.",
-              "Xác định hiển thị LTF đã về vùng canh lênh hay chưa.",
-              "Bật/Tất toàn bộ fvg LTF.",
-              "Tính toán toàn bộ dữ liệu lịch sử.",
-              "Tùy chỉnh thời gian vào lệnh LTF Bias HTF.",
-              "***Thông báo khi có setup***.",
-              "Bật/Tất nhẫn khi có setup.",
-              "Xác định hiển thị setup.",
-              "Tùy chỉnh ghi chú IRL mạnh.",
-              "Tùy chỉnh thời gian hiệu quả của IRL.",
-              "Tùy chỉnh On/Off setup cách đỉnh/đáy tăng tỉ lệ RR.",
-              "Tùy chỉnh thời gian thông báo.",
-              "Ưu tiên hỗ trợ khi có lỗi.",
-    
-            ],
-            highlight: "premium"
-          },
-         
           {
             name: 'Structure SMC (duy) v1',
-            monthly: 0.00,
-            yearly: 0.00,
-            lifetime: 0.00,
-            saving: {
-              monthly: "$0.00",
-              yearly: "$0.00",
-              lifetime:"$0.0",
-            },
+            monthly: 0.0,
+            yearly: 0.0,
+            lifetime: 0.0,
+            saving: { monthly: "$0.00", yearly: "$0.00", lifetime: "$0.00" },
             action: 'Link Indicator',
-            url: 'https://www.tradingview.com/script/QXZ5ayUI-Structure-SMC-duy-v1/', // <-- Thêm link tại đây
+            url: 'https://www.tradingview.com/script/QXZ5ayUI-Structure-SMC-duy-v1/',
             features: [
               "Vẽ cấu trúc chuẩn SMC.",
-              "Vẽ sóng Gann.",
-
-    
+              "Vẽ sóng Gann."
             ],
             highlight: ""
           }
-        ]
-      },
-      computed: {
-        filteredPlans() {
-          return this.isPro ? this.plans : [this.plans[0]];
+          ]
         }
       },
       methods: {
         getPrice(plan) {
-          return this.billingCycle === 'monthly'
-            ? plan.monthly.toFixed(2)
-            :this.billingCycle === 'yearly'? (plan.yearly / 12).toFixed(2): "0.00";
+          if (this.billingCycle === "monthly") return plan.monthly;
+          if (this.billingCycle === "yearly") return (plan.yearly / 12).toFixed(2);
+          return plan.lifetime;
         }
       }
-    });
+    }).mount("#app");
   </script>
 </body>
 </html>

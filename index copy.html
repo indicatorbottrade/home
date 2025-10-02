@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Indicator IRL ERL</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="background">
+      <div class="container">
+        <div class="header">
+          <div class="switch">
+            <!-- <button :class="{ active: !isPro }" @click="isPro = false">Bot Trade</button> -->
+            <button :class="{ active: !isPro }">Bot Trade</button>
+            <button :class="{ active: isPro }" @click="isPro = true">Indicator</button>
+          </div>
+          <h1>Gói dịch vụ cho<br>Indicator IRL ERL ở mọi mức độ</h1>
+          <div class="toggle">
+            <label>
+              <input type="radio" value="monthly" v-model="billingCycle"> Hàng tháng
+             
+            </label>
+            <label>
+              <input type="radio" value="yearly" v-model="billingCycle"> 
+              Hàng năm 
+            </label>
+<!--             <label>
+              <input type="radio" value="lifetime" v-model="billingCycle"> 
+              Trọn đời 
+            </label> -->
+            <span class="discount">Hỗ trợ dùng thử miễn phí</span>
+          </div>
+        </div>
+
+        <div class="pricing">
+          <div class="card" v-for="plan in filteredPlans" :key="plan.name" :class="plan.highlight">
+            <h2>{{ plan.name }}</h2>
+            <p class="price">${{ getPrice(plan) }} <span>/ tháng</span></p>
+            <p class="subtext">Giá {{ plan.saving[billingCycle] }}</p>
+            <!-- <button class="btn">{{ plan.action }}</button> -->
+             <a class="btn" :href="plan.url" target="_blank">{{ plan.action }}</a>
+            <ul>
+              <li v-for="(feature, i) in plan.features" :key="i">{{ feature }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="chat-buttons">
+      <!-- Nút Telegram -->
+      <a href="https://t.me/hokhanhduycs" class="chat-button" target="_blank" aria-label="Telegram Chat">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 0C5.3728 0 0 5.3728 0 12C0 18.6272 5.3728 24 12 24C18.6272 24 24 18.6272 24 12C24 5.3728 18.6272 0 12 0ZM17.9472 7.3536L16.1952 16.2816C16.056 16.9488 15.648 17.1072 15.0816 16.8144L12.2736 14.7312L10.9584 16.0032C10.8048 16.1568 10.6704 16.2912 10.3968 16.2912L10.6032 13.4266L15.7056 8.976C15.9264 8.7856 15.6576 8.6784 15.3792 8.8704L8.8128 13.3056L6.0144 12.4704C5.3616 12.2688 5.3472 11.8224 6.1776 11.52L17.1072 7.5936C17.6448 7.4088 18.12 7.7376 17.9472 7.3536Z"/>
+      </svg>
+    </a>
+  </div>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        billingCycle: 'monthly',
+        isPro: true,
+        plans: [
+          {
+            name: 'IRL ERL (duy) v1',
+            monthly: 0.0,
+            yearly: 0.0,
+            lifetime: 0.0,
+            saving: {
+              monthly: "Free",
+              yearly: "Free",
+              lifetime: "Free"
+            },
+            action: 'Link Indicator',
+            url: 'https://vn.tradingview.com/script/oXdyemCp/', // <-- Thêm link tại đây
+            features: [
+              "Vẽ IRL H4.",
+              "Xác định và đánh dấu IRL H4 mạnh.",
+              "Vẽ ERL đỉnh/đáy khi có IRL H4 mạnh.",
+              "Xác định và hiện thị Bias H4.",
+              "Xác định [vẽ] vùng canh lệnh theo Bias H4.",
+              "Xác định hiện thị M15 đã về vùng canh lênh hay chưa.",
+              "Hiện thị 40 fgv M15 gần nhất.",
+              "Tính toán trong 25 ngày gần nhất.",
+
+            ],
+            highlight: ""
+          },
+         
+          {
+            name: 'IRL ERL (duy) v3',
+            monthly: 9.99,
+            yearly: 99.99,
+            lifetime: 499.99,
+            saving: {
+              monthly: "$9.99",
+              yearly: "$99.99",
+              lifetime:"$499.99",
+            },
+            action: 'Link Indicator',
+            url: 'https://vn.tradingview.com/script/gy1QpgAK/', // <-- Thêm link tại đây
+            features: [
+              "Vẽ IRL HTF.",
+              "Xác định đánh dấu IRL HTF mạnh.",
+              "Vẽ ERL đỉnh/đáy khi có IRL mạnh.",
+              "Xác định hiển thị Bias HTF.",
+              "Xác định [vẽ] vùng canh lệnh theo Bias.",
+              "Xác định hiển thị LTF đã về vùng canh lênh hay chưa.",
+              "Bật/Tất toàn bộ fvg LTF.",
+              "Tính toán toàn bộ dữ liệu lịch sử.",
+              "Tùy chỉnh thời gian vào lệnh LTF Bias HTF.",
+              "***Thông báo khi có setup***.",
+              "Bật/Tất nhẫn khi có setup.",
+              "Xác định hiển thị setup.",
+              "Tùy chỉnh ghi chú IRL mạnh.",
+              "Tùy chỉnh thời gian hiệu quả của IRL.",
+              "Tùy chỉnh On/Off setup cách đỉnh/đáy tăng tỉ lệ RR.",
+              "Tùy chỉnh thời gian thông báo.",
+              "Ưu tiên hỗ trợ khi có lỗi.",
+    
+            ],
+            highlight: "premium"
+          },
+         
+          {
+            name: 'Structure SMC (duy) v1',
+            monthly: 0.00,
+            yearly: 0.00,
+            lifetime: 0.00,
+            saving: {
+              monthly: "$0.00",
+              yearly: "$0.00",
+              lifetime:"$0.0",
+            },
+            action: 'Link Indicator',
+            url: 'https://www.tradingview.com/script/QXZ5ayUI-Structure-SMC-duy-v1/', // <-- Thêm link tại đây
+            features: [
+              "Vẽ cấu trúc chuẩn SMC.",
+              "Vẽ sóng Gann.",
+
+    
+            ],
+            highlight: ""
+          }
+        ]
+      },
+      computed: {
+        filteredPlans() {
+          return this.isPro ? this.plans : [this.plans[0]];
+        }
+      },
+      methods: {
+        getPrice(plan) {
+          return this.billingCycle === 'monthly'
+            ? plan.monthly.toFixed(2)
+            :this.billingCycle === 'yearly'? (plan.yearly / 12).toFixed(2): "0.00";
+        }
+      }
+    });
+  </script>
+</body>
+</html>
